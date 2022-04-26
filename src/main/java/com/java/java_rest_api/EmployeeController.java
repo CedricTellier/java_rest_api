@@ -17,8 +17,8 @@ public class EmployeeController {
         }
 
         @PutMapping("/employees/{id}")
-        public String updateAnEmployee(@PathVariable int id){
-            return String.format("You try to update the user: %s!", id);
+        public Employee updateAnEmployee(@PathVariable int id, @RequestBody Employee lEmployee){
+            return lEmployee;
         }
 
         @PostMapping("/employees")
