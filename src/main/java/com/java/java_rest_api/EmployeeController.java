@@ -22,8 +22,8 @@ public class EmployeeController {
             return selectAnEmployee(id);
         }
         @PostMapping("/employees")
-        public Employee createEmployee(@RequestBody Employee lEmployee) {
-            return lEmployee;
+        public int createEmployee(@RequestBody Employee lEmployee) {
+            return insertAnEmployee(lEmployee);
         }
 
         @PutMapping("/employees/{id}")
@@ -50,5 +50,10 @@ public class EmployeeController {
         public int updateAnEmployee(int id, Employee employee){
             String sql = "UPDATE employees SET firstname=?, lastname=?,company=?,age=? WHERE id=?";
             return jdbcTemplate.update(sql, new Object[]{employee.getFirstname(), employee.getLastname(), employee.getCompany(), employee.getAge(), id});
+        }
+
+        public int insertAnEmployee(Employee employee){
+            String sql = "INSERT INTO employees (firstname, lastname, company, age) values (?, ?, ?, ?)";
+            return jdbcTemplate.update(sql, new Object[]{employee.getFirstname(), employee.getLastname(), employee.getCompany(), employee.getAge()});
         }
 }
