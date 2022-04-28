@@ -5,9 +5,9 @@ import com.java.java_rest_api.models.IPerson;
 import java.util.List;
 
 public interface IService {
-    public  List<?> selectAll();
-    public IPerson select(long id);
-    public  int insert(IPerson person);
-    public  int update(long id, IPerson object);
-    public  int delete(long id);
+    List<?> selectAll();
+    IPerson select(long id);
+    int insert(IPerson person);
+    int update(long id, IPerson object);
+    int delete(long id);
 }
