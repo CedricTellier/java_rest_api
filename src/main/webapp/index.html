@@ -21,32 +21,32 @@
             <a id="employeTab" class="button" href="#tab_employees" onclick='getEmployees()'>Employes</a>
         </li>
     </ul>
-
     <div class="tab-content">
         <div class="tab-pane active" id="tab_clients">
             <div class="row">
                 <div class="six columns">
-                    <input class="u-full-width" id="operationSearchInput" type="text" placeholder="Rechercher..."
-                           onkeyup="filterOperations()">
+                    <input class="u-full-width" id="clientsSearchInput" type="text" placeholder="Rechercher..."
+                           onkeyup="filterCLients()">
                 </div>
                 <div class="six columns" style="text-align: right">
-                    <button id="btnAddOperation" onclick='openModal("insertOperationModal")'
+                    <button id="btnAddCLient" onclick='openModal("insertClientsModal")'
                             class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
                 </div>
             </div>
             <div class="row">
                 <div class="twelve columns">
-                    <table class="u-full-width" id="table_operations">
+                    <table class="u-full-width" id="table_clients">
                         <thead>
                         <tr>
+                            <th>Identifiant</th>
                             <th>Nom</th>
-                            <th>Temps</th>
-                            <th>Ordre</th>
-                            <th>Description</th>
+                            <th>Prenom</th>
+                            <th>Entreprise</th>
+                            <th>Age</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody id="table_operations_body">
+                        <tbody id="table_clients_body">
                         </tbody>
                     </table>
                 </div>
@@ -136,12 +136,40 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane active" id="tab_employees">
+        <div class="tab-pane" id="tab_employees">
+            <div class="row">
+                <div class="six columns">
+                    <input class="u-full-width" id="employeesSearchInput" type="text" placeholder="Rechercher..."
+                           onkeyup="filterEmployees()">
+                </div>
+                <div class="six columns" style="text-align: right">
+                    <button id="btnAddEmployee" onclick='openModal("insertEmployeesModal")'
+                            class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <table class="u-full-width" id="table_employees">
+                        <thead>
+                        <tr>
+                            <th>Identifiant</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Entreprise</th>
+                            <th>Age</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table_employees_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
     </div>
 </div>
 </body>
-
-<script src="./js/utils.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="https://kit.fontawesome.com/7fb28fff46.js" crossorigin="anonymous"></script>
 </html>

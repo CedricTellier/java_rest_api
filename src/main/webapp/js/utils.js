@@ -55,30 +55,14 @@ function getModalBehavior(modal, id) {
         document.getElementById("deleteProductBtn").dataset.delete = id;
     }
 }
+
 function getEmployees(){
     fetch("http://localhost:8080/employees")
         .then(response => response.json())
         .then(function(data) {
-            console.log(data);
-
-            /* data.filter(key => {
-
-                 let quote = document.querySelector(".quote");
-                 let author = document.querySelector(".author");
-                 let cleanQuote = key.content.replace(/<\/?p[^>]*>/g, ''); // This way we remove <p> tag from quote (api has quotes with p tags)
-
-                 let share = 'https://twitter.com/home?status=' + cleanQuote + ' Author: ' + key.title;
-                 console.log(share)
-
-                 quote.innerHTML = key.content;
-                 author.innerHTML = key.title;
-
-                 document.getElementById('twitterShare').href=share;
-             });*/
-
+            displayDatas(data,"table_employees_body");
         })
         .catch(function(error) {
-            // If there is any error you will catch them here
             console.log(error);
         });
 }
@@ -87,28 +71,49 @@ function getClients() {
     fetch("http://localhost:8080/clients/")
         .then(response => response.json())
         .then(function(data) {
-            console.log(data);
-
-           /* data.filter(key => {
-
-                let quote = document.querySelector(".quote");
-                let author = document.querySelector(".author");
-                let cleanQuote = key.content.replace(/<\/?p[^>]*>/g, ''); // This way we remove <p> tag from quote (api has quotes with p tags)
-
-                let share = 'https://twitter.com/home?status=' + cleanQuote + ' Author: ' + key.title;
-                console.log(share)
-
-                quote.innerHTML = key.content;
-                author.innerHTML = key.title;
-
-                document.getElementById('twitterShare').href=share;
-            });*/
-
+            displayDatas(data,"table_clients_body");
         })
         .catch(function(error) {
-            // If there is any error you will catch them here
             console.log(error);
         });
 }
+
+
+function displayDatas(data, table){
+    document.getElementById(table).innerHTML = "";
+    let lTable = document.getElementById(
+        table
+    );
+    let i = 0;
+    data.forEach(function (obj) {
+        let lNewLigne = lTable.insertRow(i);
+
+        lNewLigne.setAttribute("data-id", obj.id);
+        lNewLigne.insertCell(0).appendChild(document.createTextNode(obj.id));
+        lNewLigne.insertCell(1).appendChild(document.createTextNode(obj.firstname));
+        lNewLigne.insertCell(2).appendChild(document.createTextNode(obj.lastname));
+        lNewLigne.insertCell(3).appendChild(document.createTextNode(obj.company));
+        lNewLigne.insertCell(4).appendChild(document.createTextNode(obj.age));
+
+        if(table == "table_clients_body"){
+            lNewLigne.insertCell(5).innerHTML =
+                "<button id='modifyClientBtn' onclick='openModal(\"modifyClientModal\"," +
+                obj.id +
+                ")' class='button'><i class='far fa-edit'></i></button> <button id='deleteClientBtn'onclick='openModal(\"deleteClientModal\"," +
+                obj.id +
+                ")' class='button'><i class='fas fa-trash-alt'></i></button>";
+        }
+        else{
+            lNewLigne.insertCell(5).innerHTML =
+                "<button id='modifyEmployeeBtn' onclick='openModal(\"modifyEmployeeModal\"," +
+                obj.id +
+                ")' class='button'><i class='far fa-edit'></i></button> <button id='deleteEmployeeBtn'onclick='openModal(\"deleteEmployeeModal\"," +
+                obj.id +
+                ")' class='button'><i class='fas fa-trash-alt'></i></button>";
+        }
+        i++;
+    });
+}
+
 
 window.onload = getClients(); // new quote on page load
