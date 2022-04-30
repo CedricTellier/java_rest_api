@@ -26,3 +26,18 @@ async function insertNewEmployee(event) {
 
     return true;
 }
+
+async function deleteEmployee(){
+    closeModal("deleteEmployeeModal");
+    fetch("http://localhost:8080/employees/" + document.getElementById("deleteEmployeeBtn").dataset.delete, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json()).then(function(data) {
+        getEmployees();
+    })
+        .catch(function(error) {
+            console.log(error);
+        });
+}

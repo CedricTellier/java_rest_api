@@ -118,19 +118,19 @@
                     </form>
                 </div>
             </div>
-            <div class="modal" id="deleteOperationModal">
+            <div class="modal" id="deleteClientModal">
                 <div class="modal-content">
                     <div class="row" style="text-align:center;">
-                        <h4>Supprimer une opération <span onclick='closeModal("deleteOperationModal")'
+                        <h4>Supprimer un Client <span onclick='closeModal("deleteClientModal")'
                                                           class="close">&times;</span></h4>
                     </div>
                     <div class="row">
                         <p style="text-align: center;">
-                            La suppression de cette opération sera définitive. Voulez-vous confirmer?
+                            La suppression de ce client sera définitive. Voulez-vous confirmer?
                         </p>
                     </div>
                     <div class="row">
-                        <button id="deleteOperationBtn" onclick="deleteAnOperation()" class="button-primary"
+                        <button id="deleteClientBtn" onclick="deleteClient()" class="button-primary"
                                 style="float: right;">Valider</button>
                     </div>
                 </div>
@@ -201,8 +201,24 @@
                 </div>
             </div>
 
+            <div class="modal" id="deleteEmployeeModal">
+                <div class="modal-content">
+                    <div class="row" style="text-align:center;">
+                        <h4>Supprimer un Employe <span onclick='closeModal("deleteClientModal")'
+                                                      class="close">&times;</span></h4>
+                    </div>
+                    <div class="row">
+                        <p style="text-align: center;">
+                            La suppression de cet employe sera définitif. Voulez-vous confirmer?
+                        </p>
+                    </div>
+                    <div class="row">
+                        <button id="deleteEmployeeBtn" onclick="deleteEmployee()" class="button-primary"
+                                style="float: right;">Valider</button>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
 </body>

@@ -26,3 +26,18 @@ async function insertNewClient(event) {
 
     return true;
 }
+
+async function deleteClient(){
+    closeModal("deleteClientModal");
+    fetch("http://localhost:8080/clients/" + document.getElementById("deleteClientBtn").dataset.delete, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json()).then(function(data) {
+        getClients();
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+}

@@ -38,21 +38,16 @@ function closeModal(modal) {
 }
 
 function getModalBehavior(modal, id) {
-    if (modal == "modifyOperationModal") {
+    if (modal == "modifyClientModal") {
         document.getElementById("modifyOperationBtn").dataset.modify = id;
         window.api.send("getAnOperation", id);
-    } else if (modal == "deleteOperationModal") {
-        document.getElementById("deleteOperationBtn").dataset.delete = id;
-    } else if (modal == "modifyPostModal") {
+    } else if (modal == "deleteClientModal") {
+        document.getElementById("deleteClientBtn").dataset.delete = id;
+    } else if (modal == "modifyEmployeeModal") {
         document.getElementById("modifyPostBtn").dataset.modify = id;
         window.api.send("getAPost", id);
-    } else if (modal == "deletePostModal") {
-        document.getElementById("deletePostBtn").dataset.delete = id;
-    } else if (modal == "modifyProductModal") {
-        document.getElementById("modifyProductBtn").dataset.modify = id;
-        window.api.send("getAProduct", id);
-    } else if (modal == "deleteProductModal") {
-        document.getElementById("deleteProductBtn").dataset.delete = id;
+    } else if (modal == "deleteEmployeeModal") {
+        document.getElementById("deleteEmployeeBtn").dataset.delete = id;
     }
 }
 
