@@ -39,12 +39,12 @@ function closeModal(modal) {
 
 function getModalBehavior(modal, id) {
     if (modal == "modifyClientModal") {
-        document.getElementById("modifyOperationBtn").dataset.modify = id;
-        window.api.send("getAnOperation", id);
+        document.getElementById("modifyClientBtn").dataset.modify = id;
+        getAClient(id);
     } else if (modal == "deleteClientModal") {
         document.getElementById("deleteClientBtn").dataset.delete = id;
     } else if (modal == "modifyEmployeeModal") {
-        document.getElementById("modifyPostBtn").dataset.modify = id;
+        document.getElementById("modifyEmployeeBtn").dataset.modify = id;
         window.api.send("getAPost", id);
     } else if (modal == "deleteEmployeeModal") {
         document.getElementById("deleteEmployeeBtn").dataset.delete = id;
