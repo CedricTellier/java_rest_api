@@ -11,7 +11,7 @@ async function insertNewClient(event) {
     document.getElementById("insertClientForm").reset();
     closeModal("insertClientModal");
 
-    fetch("http://localhost:8080/clients/", {
+    fetch("http://localhost:8080/clients", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

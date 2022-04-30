@@ -143,7 +143,7 @@
                            onkeyup="filterEmployees()">
                 </div>
                 <div class="six columns" style="text-align: right">
-                    <button id="btnAddEmployee" onclick='openModal("insertEmployeesModal")'
+                    <button id="btnAddEmployee" onclick='openModal("insertEmployeeModal")'
                             class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
                 </div>
             </div>
@@ -165,6 +165,42 @@
                     </table>
                 </div>
             </div>
+            <div class="modal" id="insertEmployeeModal">
+                <div class="modal-content">
+                    <form id="insertEmployeeForm" onsubmit="return insertNewEmployee(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Créer un Salarie <span onclick='closeModal("insertEmployeeModal")'
+                                                      class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeName">Nom</label>
+                                <input class="u-full-width" id="employeeName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeLastname">Prenom</label>
+                                <input class="u-full-width" id="employeeLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeAge">Age</label>
+                                <input class="u-full-width" id="employeeAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeCompany">Entreprise</label>
+                                <input class="u-full-width" id="employeeCompany"  type="text" required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <input id="addEmployeeBtn" class="button-primary" type="submit" style="float: right;"
+                                   value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -172,5 +208,6 @@
 </body>
     <script src="./js/utils.js"></script>
     <script src="./js/client.js"></script>
+    <script src="./js/employee.js"></script>
     <script src="https://kit.fontawesome.com/7fb28fff46.js" crossorigin="anonymous"></script>
 </html>
