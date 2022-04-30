@@ -12,8 +12,136 @@
 </head>
 <body>
 <div class="container">
+    <ul class="tab-nav">
+        <li>
+            <a id="clientTab" class="button active" href="#tab_clients"
+               onclick='getClients()'>Clients</a>
+        </li>
+        <li>
+            <a id="employeTab" class="button" href="#tab_employees" onclick='getEmployees()'>Employes</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab_clients">
+            <div class="row">
+                <div class="six columns">
+                    <input class="u-full-width" id="operationSearchInput" type="text" placeholder="Rechercher..."
+                           onkeyup="filterOperations()">
+                </div>
+                <div class="six columns" style="text-align: right">
+                    <button id="btnAddOperation" onclick='openModal("insertOperationModal")'
+                            class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <table class="u-full-width" id="table_operations">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Temps</th>
+                            <th>Ordre</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table_operations_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal" id="insertOperationModal">
+                <div class="modal-content">
+                    <form id="insertOperationForm" onsubmit="return insertNewOperation(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Créer une opération <span onclick='closeModal("insertOperationModal")'
+                                                          class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="operationName">Nom</label>
+                                <input class="u-full-width" id="operationName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="operationTime">Temps Théorique</label>
+                                <input class="u-full-width" id="operationTime" type="number" step=".001" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="operationOrder">Ordre</label>
+                                <input class="u-full-width" id="operationOrder" type="number" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="operationDescription">Description</label>
+                                <textarea class="u-full-width" id="operationDescription"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <input id="addOperationBtn" class="button-primary" type="submit" style="float: right;"
+                                   value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="modifyOperationModal">
+                <div class="modal-content">
+                    <form id="modifyOperationForm" onsubmit="return modifyOperation(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Modifier une opération <span onclick='closeModal("modifyOperationModal")'
+                                                             class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="operationModifyName">Nom</label>
+                                <input class="u-full-width" id="operationModifyName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="operationModifyDescription">Description</label>
+                                <textarea class="u-full-width" id="operationModifyDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="operationModifyOrder">Ordre</label>
+                                <input class="u-full-width" id="operationModifyOrder" type="number" required>
+                            </div>
+                            <div class="six columns">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input id="modifyOperationBtn" class="button-primary" type="submit"
+                                   style="float: right;" value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="deleteOperationModal">
+                <div class="modal-content">
+                    <div class="row" style="text-align:center;">
+                        <h4>Supprimer une opération <span onclick='closeModal("deleteOperationModal")'
+                                                          class="close">&times;</span></h4>
+                    </div>
+                    <div class="row">
+                        <p style="text-align: center;">
+                            La suppression de cette opération sera définitive. Voulez-vous confirmer?
+                        </p>
+                    </div>
+                    <div class="row">
+                        <button id="deleteOperationBtn" onclick="deleteAnOperation()" class="button-primary"
+                                style="float: right;">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane active" id="tab_employees">
+        </div>
+
+    </div>
 </div>
 </body>
 
-<script src="./js/api.js"></script>
+<script src="./js/utils.js"></script>
 </html>
