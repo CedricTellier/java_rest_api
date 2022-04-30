@@ -68,7 +68,7 @@ function getEmployees(){
 }
 
 function getClients() {
-    fetch("http://localhost:8080/clients/")
+    fetch("http://localhost:8080/clients")
         .then(response => response.json())
         .then(function(data) {
             displayDatas(data,"table_clients_body");
