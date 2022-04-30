@@ -86,33 +86,35 @@
                     </form>
                 </div>
             </div>
-            <div class="modal" id="modifyOperationModal">
+            <div class="modal" id="modifyClientModal">
                 <div class="modal-content">
-                    <form id="modifyOperationForm" onsubmit="return modifyOperation(event)">
+                    <form id="modifyClientForm" onsubmit="return modifyClient(event)">
                         <div class="row" style="text-align:center;">
-                            <h4>Modifier une opération <span onclick='closeModal("modifyOperationModal")'
+                            <h4>Modifier un client <span onclick='closeModal("modifyClientModal")'
                                                              class="close">&times;</span></h4>
                         </div>
                         <div class="row">
                             <div class="six columns">
-                                <label for="operationModifyName">Nom</label>
-                                <input class="u-full-width" id="operationModifyName" type="text" required>
+                                <label for="clientModifyName">Nom</label>
+                                <input class="u-full-width" id="clientModifyName" type="text" required>
                             </div>
                             <div class="six columns">
-                                <label for="operationModifyDescription">Description</label>
-                                <textarea class="u-full-width" id="operationModifyDescription"></textarea>
+                                <label for="clientModifyLastname">Prenom</label>
+                                <input class="u-full-width" id="clientModifyLastname" type="text" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="six columns">
-                                <label for="operationModifyOrder">Ordre</label>
-                                <input class="u-full-width" id="operationModifyOrder" type="number" required>
+                                <label for="clientModifyAge">Age</label>
+                                <input class="u-full-width" id="clientModifyAge" type="number" required step="1">
                             </div>
                             <div class="six columns">
+                                <label for="clientModifyCompany">Entreprise</label>
+                                <input class="u-full-width" id="clientModifyCompany" type="text" required>
                             </div>
                         </div>
                         <div class="row">
-                            <input id="modifyOperationBtn" class="button-primary" type="submit"
+                            <input id="modifyClientBtn" class="button-primary" type="submit"
                                    style="float: right;" value="Valider">
                         </div>
                     </form>
@@ -200,7 +202,40 @@
                     </form>
                 </div>
             </div>
-
+            <div class="modal" id="modifyEmployeeModal">
+                <div class="modal-content">
+                    <form id="modifyEmployeeForm" onsubmit="return modifyEmployee(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Modifier un employe <span onclick='closeModal("modifyEmployeeModal")'
+                                                         class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeModifyName">Nom</label>
+                                <input class="u-full-width" id="employeeModifyName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeModifyLastname">Prenom</label>
+                                <input class="u-full-width" id="employeeModifyLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeModifyAge">Age</label>
+                                <input class="u-full-width" id="employeeModifyAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeModifyCompany">Entreprise</label>
+                                <input class="u-full-width" id="employeeModifyCompany" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input id="modifyEmployeeBtn" class="button-primary" type="submit"
+                                   style="float: right;" value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="modal" id="deleteEmployeeModal">
                 <div class="modal-content">
                     <div class="row" style="text-align:center;">
