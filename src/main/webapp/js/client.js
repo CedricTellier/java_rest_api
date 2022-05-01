@@ -41,3 +41,20 @@ async function deleteClient(){
         console.log(error);
     });
 }
+
+function getAClient(id){
+    fetch("http://localhost:8080/clients/" + id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json()).then(function(data) {
+        document.getElementById("").value = data.firstname;
+        document.getElementById("").value = data.lastname;
+        document.getElementById("").value = data.company;
+        document.getElementById("").value = data.age;
+    })
+        .catch(function(error) {
+            console.log(error);
+        });
+}
