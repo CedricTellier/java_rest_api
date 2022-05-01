@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/skeleton.css">
+    <title>Flowbird Project</title>
+</head>
+<body>
+<div class="container">
+    <ul class="tab-nav">
+        <li>
+            <a id="clientTab" class="button active" href="#tab_clients"
+               onclick='getClients()'>Clients</a>
+        </li>
+        <li>
+            <a id="employeTab" class="button" href="#tab_employees" onclick='getEmployees()'>Employes</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab_clients">
+            <div class="row">
+                <div class="six columns">
+                    <input class="u-full-width" id="clientsSearchInput" type="text" placeholder="Rechercher..."
+                           onkeyup="filterCLients()">
+                </div>
+                <div class="six columns" style="text-align: right">
+                    <button id="btnAddCLient" onclick='openModal("insertClientModal")'
+                            class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <table class="u-full-width" id="table_clients">
+                        <thead>
+                        <tr>
+                            <th>Identifiant</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Entreprise</th>
+                            <th>Age</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table_clients_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal" id="insertClientModal">
+                <div class="modal-content">
+                    <form id="insertClientForm" onsubmit="return insertNewClient(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Créer un Client <span onclick='closeModal("insertClientModal")'
+                                                          class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="clientName">Nom</label>
+                                <input class="u-full-width" id="clientName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="clientLastname">Prenom</label>
+                                <input class="u-full-width" id="clientLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="clientAge">Age</label>
+                                <input class="u-full-width" id="clientAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="clientCompany">Entreprise</label>
+                                <input class="u-full-width" id="clientCompany"  type="text" required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <input id="addClientBtn" class="button-primary" type="submit" style="float: right;"
+                                   value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="modifyClientModal">
+                <div class="modal-content">
+                    <form id="modifyClientForm" onsubmit="return modifyClient(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Modifier un client <span onclick='closeModal("modifyClientModal")'
+                                                             class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="clientModifyName">Nom</label>
+                                <input class="u-full-width" id="clientModifyName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="clientModifyLastname">Prenom</label>
+                                <input class="u-full-width" id="clientModifyLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="clientModifyAge">Age</label>
+                                <input class="u-full-width" id="clientModifyAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="clientModifyCompany">Entreprise</label>
+                                <input class="u-full-width" id="clientModifyCompany" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input id="modifyClientBtn" class="button-primary" type="submit"
+                                   style="float: right;" value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="deleteClientModal">
+                <div class="modal-content">
+                    <div class="row" style="text-align:center;">
+                        <h4>Supprimer un Client <span onclick='closeModal("deleteClientModal")'
+                                                          class="close">&times;</span></h4>
+                    </div>
+                    <div class="row">
+                        <p style="text-align: center;">
+                            La suppression de ce client sera définitive. Voulez-vous confirmer?
+                        </p>
+                    </div>
+                    <div class="row">
+                        <button id="deleteClientBtn" onclick="deleteClient()" class="button-primary"
+                                style="float: right;">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab_employees">
+            <div class="row">
+                <div class="six columns">
+                    <input class="u-full-width" id="employeesSearchInput" type="text" placeholder="Rechercher..."
+                           onkeyup="filterEmployees()">
+                </div>
+                <div class="six columns" style="text-align: right">
+                    <button id="btnAddEmployee" onclick='openModal("insertEmployeeModal")'
+                            class="button-primary"><i class="fas fa-plus fa-lg" style="float:right"></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="twelve columns">
+                    <table class="u-full-width" id="table_employees">
+                        <thead>
+                        <tr>
+                            <th>Identifiant</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Entreprise</th>
+                            <th>Age</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table_employees_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal" id="insertEmployeeModal">
+                <div class="modal-content">
+                    <form id="insertEmployeeForm" onsubmit="return insertNewEmployee(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Créer un Salarie <span onclick='closeModal("insertEmployeeModal")'
+                                                      class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeName">Nom</label>
+                                <input class="u-full-width" id="employeeName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeLastname">Prenom</label>
+                                <input class="u-full-width" id="employeeLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeAge">Age</label>
+                                <input class="u-full-width" id="employeeAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeCompany">Entreprise</label>
+                                <input class="u-full-width" id="employeeCompany"  type="text" required>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <input id="addEmployeeBtn" class="button-primary" type="submit" style="float: right;"
+                                   value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="modifyEmployeeModal">
+                <div class="modal-content">
+                    <form id="modifyEmployeeForm" onsubmit="return modifyEmployee(event)">
+                        <div class="row" style="text-align:center;">
+                            <h4>Modifier un employe <span onclick='closeModal("modifyEmployeeModal")'
+                                                         class="close">&times;</span></h4>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeModifyName">Nom</label>
+                                <input class="u-full-width" id="employeeModifyName" type="text" required>
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeModifyLastname">Prenom</label>
+                                <input class="u-full-width" id="employeeModifyLastname" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="six columns">
+                                <label for="employeeModifyAge">Age</label>
+                                <input class="u-full-width" id="employeeModifyAge" type="number" required step="1">
+                            </div>
+                            <div class="six columns">
+                                <label for="employeeModifyCompany">Entreprise</label>
+                                <input class="u-full-width" id="employeeModifyCompany" type="text" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input id="modifyEmployeeBtn" class="button-primary" type="submit"
+                                   style="float: right;" value="Valider">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal" id="deleteEmployeeModal">
+                <div class="modal-content">
+                    <div class="row" style="text-align:center;">
+                        <h4>Supprimer un Employe <span onclick='closeModal("deleteClientModal")'
+                                                      class="close">&times;</span></h4>
+                    </div>
+                    <div class="row">
+                        <p style="text-align: center;">
+                            La suppression de cet employe sera définitif. Voulez-vous confirmer?
+                        </p>
+                    </div>
+                    <div class="row">
+                        <button id="deleteEmployeeBtn" onclick="deleteEmployee()" class="button-primary"
+                                style="float: right;">Valider</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <script src="./js/utils.js"></script>
+    <script src="./js/client.js"></script>
+    <script src="./js/employee.js"></script>
+    <script src="https://kit.fontawesome.com/7fb28fff46.js" crossorigin="anonymous"></script>
+</html>
