@@ -40,6 +40,7 @@ function closeModal(modal) {
 function getModalBehavior(modal, id) {
     if (modal == "modifyClientModal") {
         document.getElementById("modifyClientBtn").dataset.modify = id;
+        getAClient(id);
     } else if (modal == "deleteClientModal") {
         document.getElementById("deleteClientBtn").dataset.delete = id;
     } else if (modal == "modifyEmployeeModal") {

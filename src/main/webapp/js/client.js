@@ -48,13 +48,42 @@ function getAClient(id){
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then(response => response.json()).then(function(data) {
-        document.getElementById("").value = data.firstname;
-        document.getElementById("").value = data.lastname;
-        document.getElementById("").value = data.company;
-        document.getElementById("").value = data.age;
+    }).then(response => response.json()).then(function(client) {
+        document.getElementById("clientModifyName").value = client.firstname;
+        document.getElementById("clientModifyLastname").value = client.lastname;
+        document.getElementById("clientModifyCompany").value = client.company;
+        document.getElementById("clientModifyAge").value = client.age;
     })
         .catch(function(error) {
             console.log(error);
         });
+}
+
+
+function modifyClient(event){
+
+    event.preventDefault();
+    let client = {
+        firstname: document.getElementById("clientModifyName").value,
+        lastname: document.getElementById("clientModifyLastname").value,
+        age: parseInt(document.getElementById("clientModifyAge").value),
+        company: document.getElementById("clientModifyCompany").value,
+    };
+    document.getElementById("modifyClientForm").reset();
+    closeModal("modifyClientModal");
+
+    fetch("http://localhost:8080/clients/" + document.getElementById("modifyClientBtn").dataset.modify, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(client)
+    }).then(response => response.json()).then(function(employee) {
+        getClients();
+    })
+        .catch(function(error) {
+            console.log(error);
+        });
+
+    return true;
 }
