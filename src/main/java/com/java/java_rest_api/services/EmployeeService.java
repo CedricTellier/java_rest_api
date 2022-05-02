@@ -3,6 +3,8 @@ package com.java.java_rest_api.services;
 import com.java.java_rest_api.models.Employee;
 import com.java.java_rest_api.models.IPerson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class EmployeeService implements IService {
+public class EmployeeService implements IService{
 
     @Autowired
     public JdbcTemplate mJdbc;
@@ -21,8 +23,18 @@ public class EmployeeService implements IService {
     private final String mDeleteQry = "DELETE FROM employees WHERE id=?";
 
     @Override
-    public List<Employee> selectAll()  {
-        return mJdbc.query(this.mSelectAllQry, BeanPropertyRowMapper.newInstance(Employee.class));
+    public ResponseEntity<List<?>> selectAll() {
+        try{
+            List<Employee> employees = mJdbc.query(this.mSelectAllQry, BeanPropertyRowMapper.newInstance(Employee.class));
+            if(employees.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(employees, HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.java.java_rest_api.controllers;
 import com.java.java_rest_api.services.EmployeeService;
 import com.java.java_rest_api.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class EmployeeController {
     EmployeeService mService;
 
     @GetMapping(value = "/employees")
-    public List<Employee> getAllEmployees()  {
+    public ResponseEntity<List<?>>  getAllEmployees()  {
         return mService.selectAll();
     }
 
