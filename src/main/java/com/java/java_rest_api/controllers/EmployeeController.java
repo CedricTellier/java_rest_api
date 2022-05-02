@@ -15,9 +15,7 @@ public class EmployeeController {
     EmployeeService mService;
 
     @GetMapping(value = "/employees")
-    public ResponseEntity<List<?>>  getAllEmployees()  {
-        return mService.selectAll();
-    }
+    public ResponseEntity<List<?>>  getAllEmployees()  { return mService.selectAll(); }
 
     @GetMapping("/employees/{id}")
     public ResponseEntity<?> getAnEmployee(@PathVariable long id) {
@@ -30,12 +28,10 @@ public class EmployeeController {
     }
 
     @PutMapping("/employees/{id}")
-    public ResponseEntity update(@PathVariable long id, @RequestBody Employee lEmployee) {
-        return mService.update(id, lEmployee);
-    }
+    public ResponseEntity update(@PathVariable long id, @RequestBody Employee lEmployee) { return mService.update(id, lEmployee); }
 
     @DeleteMapping("/employees/{id}")
-    public int delete(@PathVariable long id) {
+    public ResponseEntity delete(@PathVariable long id) {
         return mService.delete(id);
     }
 }

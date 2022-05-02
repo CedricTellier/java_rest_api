@@ -81,7 +81,16 @@ public class EmployeeService implements IService{
     }
 
     @Override
-    public int delete(long id){
-        return mJdbc.update(this.mDeleteQry,id);
+    public ResponseEntity delete(long id){
+        try {
+            int result = mJdbc.update(this.mDeleteQry,id);
+            if(result == 1){
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

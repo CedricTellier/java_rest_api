@@ -81,7 +81,16 @@ public class ClientService implements IService {
     }
 
     @Override
-    public int delete(long aId) {
-        return mJdbc.update(this.mDeleteQry,aId);
+    public ResponseEntity delete(long aId) {
+        try {
+            int result = mJdbc.update(this.mDeleteQry,aId);
+            if(result == 1){
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

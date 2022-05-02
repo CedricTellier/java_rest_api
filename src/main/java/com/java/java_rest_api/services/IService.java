@@ -10,5 +10,5 @@ public interface IService {
     ResponseEntity<?> select(long id);
     ResponseEntity insert(IPerson person);
     ResponseEntity update(long id, IPerson object);
-    int delete(long id);
+    ResponseEntity delete(long id);
 }
