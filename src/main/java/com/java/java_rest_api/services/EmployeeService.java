@@ -67,8 +67,17 @@ public class EmployeeService implements IService{
     }
 
     @Override
-    public int update(long id, IPerson employee){
-        return mJdbc.update(this.mUpdateQry, new Object[]{employee.getFirstname(), employee.getLastname(), employee.getCompany(), employee.getAge(), id});
+    public ResponseEntity update(long id, IPerson employee){
+        try {
+            int result = mJdbc.update(this.mUpdateQry, new Object[]{employee.getFirstname(), employee.getLastname(), employee.getCompany(), employee.getAge(), id});
+            if(result == 1){
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

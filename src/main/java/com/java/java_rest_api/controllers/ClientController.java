@@ -30,7 +30,9 @@ public class ClientController {
     }
 
     @PutMapping("/clients/{id}")
-    public int update(@PathVariable long id, @RequestBody Client lClient){return mService.update(id, lClient);}
+    public ResponseEntity update(@PathVariable long id, @RequestBody Client lClient){
+        return mService.update(id, lClient);
+    }
 
     @DeleteMapping("/clients/{id}")
     public int delete(@PathVariable long id)

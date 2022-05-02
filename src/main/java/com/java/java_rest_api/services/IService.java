@@ -9,6 +9,6 @@ public interface IService {
     ResponseEntity<List<?>> selectAll();
     ResponseEntity<?> select(long id);
     ResponseEntity insert(IPerson person);
-    int update(long id, IPerson object);
+    ResponseEntity update(long id, IPerson object);
     int delete(long id);
 }
