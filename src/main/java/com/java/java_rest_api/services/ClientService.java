@@ -3,6 +3,7 @@ package com.java.java_rest_api.services;
 import com.java.java_rest_api.models.Client;
 import com.java.java_rest_api.models.IPerson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -37,8 +38,18 @@ public class ClientService implements IService {
     }
 
     @Override
-    public Client select(long aId) {
-        return mJdbc.queryForObject(this.mSelectAnEmployeeQry, BeanPropertyRowMapper.newInstance(Client.class), aId);
+    public ResponseEntity<?> select(long aId) {
+        try{
+            Client client = mJdbc.queryForObject(this.mSelectAnEmployeeQry, BeanPropertyRowMapper.newInstance(Client.class), aId);
+            return new ResponseEntity<>(client, HttpStatus.OK);
+        }
+        catch(EmptyResultDataAccessException exception){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

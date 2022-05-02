@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IService {
     ResponseEntity<List<?>> selectAll();
-    IPerson select(long id);
+    ResponseEntity<?> select(long id);
     int insert(IPerson person);
     int update(long id, IPerson object);
     int delete(long id);

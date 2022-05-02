@@ -20,7 +20,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public Employee getAnEmployee(@PathVariable long id) {
+    public ResponseEntity<?> getAnEmployee(@PathVariable long id) {
         return mService.select(id);
     }
 

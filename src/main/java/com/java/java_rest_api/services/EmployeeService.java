@@ -3,6 +3,7 @@ package com.java.java_rest_api.services;
 import com.java.java_rest_api.models.Employee;
 import com.java.java_rest_api.models.IPerson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,20 +27,29 @@ public class EmployeeService implements IService{
     public ResponseEntity<List<?>> selectAll() {
         try{
             List<Employee> employees = mJdbc.query(this.mSelectAllQry, BeanPropertyRowMapper.newInstance(Employee.class));
-            if(employees.isEmpty()){
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
             return new ResponseEntity<>(employees, HttpStatus.OK);
         }
-        catch (Exception e)
-        {
+        catch(EmptyResultDataAccessException exception){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public Employee select(long id)  {
-        return mJdbc.queryForObject(this.mSelectAnEmployeeQry, BeanPropertyRowMapper.newInstance(Employee.class), id);
+    public ResponseEntity<?>  select(long id)  {
+        try{
+            Employee employee = mJdbc.queryForObject(this.mSelectAnEmployeeQry, BeanPropertyRowMapper.newInstance(Employee.class), id);
+            if(employee == null){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

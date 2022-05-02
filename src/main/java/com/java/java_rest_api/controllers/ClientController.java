@@ -1,9 +1,7 @@
 package com.java.java_rest_api.controllers;
 
 import com.java.java_rest_api.models.Client;
-import com.java.java_rest_api.models.Employee;
 import com.java.java_rest_api.services.ClientService;
-import com.java.java_rest_api.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +20,7 @@ public class ClientController {
     }
 
     @GetMapping("/clients/{id}")
-    public Client getAClient(@PathVariable long id)
-    {
+    public ResponseEntity<?> getAClient(@PathVariable long id) {
         return mService.select(id);
     }
 
