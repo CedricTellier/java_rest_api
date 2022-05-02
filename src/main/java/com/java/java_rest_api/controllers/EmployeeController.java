@@ -25,7 +25,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public int create(@RequestBody Employee lEmployee) {
+    public ResponseEntity create(@RequestBody Employee lEmployee) {
         return mService.insert(lEmployee);
     }
 

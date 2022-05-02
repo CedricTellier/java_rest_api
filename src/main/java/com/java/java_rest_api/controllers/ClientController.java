@@ -25,7 +25,7 @@ public class ClientController {
     }
 
     @PostMapping("/clients")
-    public int create(@RequestBody Client aClient) {
+    public ResponseEntity create(@RequestBody Client aClient) {
         return mService.insert(aClient);
     }
 

@@ -53,8 +53,17 @@ public class ClientService implements IService {
     }
 
     @Override
-    public int insert(IPerson aPerson) {
-        return mJdbc.update(this.mInsertQry, new Object[]{aPerson.getFirstname(), aPerson.getLastname(), aPerson.getCompany(), aPerson.getAge()});
+    public ResponseEntity insert(IPerson aPerson) {
+        try {
+            int result = mJdbc.update(this.mInsertQry, new Object[]{aPerson.getFirstname(), aPerson.getLastname(), aPerson.getCompany(), aPerson.getAge()});
+            if(result == 1){
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
