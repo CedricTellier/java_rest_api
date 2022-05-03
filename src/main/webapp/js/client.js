@@ -1,3 +1,16 @@
+async function getClients() {
+    try {
+        const response = await fetch("http://localhost:8080/clients")
+        if(response.status != 200) return;
+        const clients = await response.json();
+        if(clients == null) return;
+        displayDatas(clients,"table_clients_body");
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
 async function insertNewClient(event) {
     event.preventDefault();
     try{

@@ -1,3 +1,16 @@
+async function getEmployees(){
+    try {
+        const response = await fetch("http://localhost:8080/employees")
+        if(response.status != 200) return;
+        const employees = await response.json();
+        if(employees == null) return;
+        displayDatas(employees, "table_employees_body")
+    }
+    catch(error) {
+        console.log(error);
+    }
+}
+
 async function insertNewEmployee(event) {
     event.preventDefault();
     try {
