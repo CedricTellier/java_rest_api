@@ -1,6 +1,7 @@
 package com.java.java_rest_api.services;
 
 import com.java.java_rest_api.models.Client;
+import com.java.java_rest_api.models.Employee;
 import com.java.java_rest_api.models.IPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,6 +22,7 @@ public class ClientService implements IService {
     private final String mUpdateQry = "UPDATE clients SET firstname=?, lastname=?,company=?,age=? WHERE id=?";
     private final String mInsertQry = "INSERT INTO clients (firstname, lastname, company, age) values (?, ?, ?, ?)";
     private final String mDeleteQry = "DELETE FROM clients WHERE id=?";
+    private final String selectDuplicateQry = "SELECT * FROM clients WHERE firstname=? AND lastname=? AND age=? AND company=?";
 
     @Override
     public ResponseEntity<List<?>> selectAll() {
@@ -55,6 +57,7 @@ public class ClientService implements IService {
     @Override
     public ResponseEntity insert(IPerson aPerson) {
         try {
+            if(this.isDuplicate(aPerson)) return new ResponseEntity(HttpStatus.CONFLICT);
             int result = mJdbc.update(this.mInsertQry, new Object[]{aPerson.getFirstname(), aPerson.getLastname(), aPerson.getCompany(), aPerson.getAge()});
             if(result == 1){
                 return new ResponseEntity(HttpStatus.OK);
@@ -91,6 +94,20 @@ public class ClientService implements IService {
         }
         catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean isDuplicate(IPerson person){
+        try {
+            Client client = mJdbc.queryForObject(this.selectDuplicateQry, BeanPropertyRowMapper.newInstance(Client.class), person.getFirstname(), person.getLastname(), person.getAge(), person.getCompany());
+            return true;
+        }
+        catch (EmptyResultDataAccessException resultException){
+            return false;
+        }
+        catch (Exception e) {
+            return true;
         }
     }
 }
