@@ -11,5 +11,4 @@ public interface IService {
     ResponseEntity insert(IPerson person);
     ResponseEntity update(long id, IPerson object);
     ResponseEntity delete(long id);
-    boolean isDuplicate(IPerson person);
 }

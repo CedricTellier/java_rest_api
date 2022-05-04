@@ -1,6 +1,5 @@
 package com.java.java_rest_api.services;
 
-import com.java.java_rest_api.models.Client;
 import com.java.java_rest_api.models.Employee;
 import com.java.java_rest_api.models.IPerson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class EmployeeService implements IService{
     private final String mUpdateQry = "UPDATE employees SET firstname=?, lastname=?,company=?,age=? WHERE id=?";
     private final String mInsertQry = "INSERT INTO employees (firstname, lastname, company, age) values (?, ?, ?, ?)";
     private final String mDeleteQry = "DELETE FROM employees WHERE id=?";
-    private final String selectDuplicateQry = "SELECT * FROM employees WHERE firstname=? AND lastname=? AND age=? AND company=?";
+    private final String mSelectDuplicateQry = "SELECT * FROM employees WHERE firstname=? AND lastname=? AND age=? AND company=?";
 
     @Override
     public ResponseEntity<List<?>> selectAll() {
@@ -97,10 +96,9 @@ public class EmployeeService implements IService{
         }
     }
 
-    @Override
     public boolean isDuplicate(IPerson person){
         try {
-            Employee employee = mJdbc.queryForObject(this.selectDuplicateQry, BeanPropertyRowMapper.newInstance(Employee.class), person.getFirstname(), person.getLastname(), person.getAge(), person.getCompany());
+            mJdbc.queryForObject(this.mSelectDuplicateQry, BeanPropertyRowMapper.newInstance(Employee.class), person.getFirstname(), person.getLastname(), person.getAge(), person.getCompany());
             return true;
         }
         catch (EmptyResultDataAccessException resultException){
